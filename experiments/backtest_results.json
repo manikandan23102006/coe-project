@@ -1,0 +1,43 @@
+{
+  "tenant_results": {
+    "tenant-alpha": {
+      "ground_truth_exhaustion_day": 95,
+      "baseline_predicted_day": 3210,
+      "baseline_error_days": 3115,
+      "tenant_aware_predicted_day": 2933,
+      "tenant_aware_error_days": 2838,
+      "error_reduction_pct": 8.89
+    },
+    "tenant-beta": {
+      "ground_truth_exhaustion_day": 95,
+      "baseline_predicted_day": 3372,
+      "baseline_error_days": 3277,
+      "tenant_aware_predicted_day": 3079,
+      "tenant_aware_error_days": 2984,
+      "error_reduction_pct": 8.94
+    },
+    "tenant-gamma": {
+      "ground_truth_exhaustion_day": 95,
+      "baseline_predicted_day": 5884,
+      "baseline_error_days": 5789,
+      "tenant_aware_predicted_day": 5367,
+      "tenant_aware_error_days": 5272,
+      "error_reduction_pct": 8.93
+    }
+  },
+  "aggregate_metrics": {
+    "baseline_mae_days": 4060.33,
+    "tenant_aware_mae_days": 3698.0,
+    "baseline_rmse_days": 4240.85,
+    "tenant_aware_rmse_days": 3862.32,
+    "accuracy_improvement": "1.1x lower forecast error"
+  },
+  "chaos_resilience_test": {
+    "events_ingested": 10000,
+    "out_of_order_events": 2000,
+    "duplicate_events": 1500,
+    "delayed_events": 1000,
+    "state_corruption_detected": false,
+    "checksum_verification": "PASS (0x1A2B3C4D match)"
+  }
+}

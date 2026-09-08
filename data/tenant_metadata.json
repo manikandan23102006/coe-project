@@ -1,0 +1,26 @@
+[
+  {
+    "tenant_id": "tenant-alpha",
+    "name": "Alpha Studio (FPS)",
+    "base_rows": 50000,
+    "daily_growth": 4500,
+    "limit_mb": 500,
+    "retention_days": 7
+  },
+  {
+    "tenant_id": "tenant-beta",
+    "name": "Beta Games (MMO)",
+    "base_rows": 200000,
+    "daily_growth": 18500,
+    "limit_mb": 2000,
+    "retention_days": 14
+  },
+  {
+    "tenant_id": "tenant-gamma",
+    "name": "Gamma Arcade (Casual)",
+    "base_rows": 15000,
+    "daily_growth": 1200,
+    "limit_mb": 250,
+    "retention_days": 3
+  }
+]
