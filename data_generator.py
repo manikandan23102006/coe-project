@@ -16,14 +16,21 @@ def generate_telemetry_dataset(output_dir="data"):
     os.makedirs(output_dir, exist_ok=True)
     
     tenants = [
-        {"tenant_id": "tenant-alpha", "name": "Alpha Studio (FPS)", "base_rows": 50000, "daily_growth": 4500, "limit_mb": 500, "retention_days": 7},
-        {"tenant_id": "tenant-beta", "name": "Beta Games (MMO)", "base_rows": 200000, "daily_growth": 18500, "limit_mb": 2000, "retention_days": 14},
-        {"tenant_id": "tenant-gamma", "name": "Gamma Arcade (Casual)", "base_rows": 15000, "daily_growth": 1200, "limit_mb": 250, "retention_days": 3}
+        {"tenant_id": "tenant-alpha", "name": "Alpha Studio (FPS)", "base_rows": 90000, "daily_growth": 6500, "limit_mb": 89.5, "retention_days": 7},
+        {"tenant_id": "tenant-beta", "name": "Beta Games (MMO)", "base_rows": 320000, "daily_growth": 24000, "limit_mb": 482.0, "retention_days": 14},
+        {"tenant_id": "tenant-gamma", "name": "Gamma Arcade (Casual)", "base_rows": 30000, "daily_growth": 2800, "limit_mb": 28.2, "retention_days": 3}
     ]
 
     start_date = datetime.now() - timedelta(days=60)
     rows_csv = []
     
+    # Track cumulative state per tenant
+    tenant_states = {
+        t["tenant_id"]: {
+            "current_rows": t["base_rows"]
+        } for t in tenants
+    }
+
     for day in range(90):
         current_date = start_date + timedelta(days=day)
         date_str = current_date.strftime("%Y-%m-%d")
@@ -31,22 +38,23 @@ def generate_telemetry_dataset(output_dir="data"):
         for tenant in tenants:
             tid = tenant["tenant_id"]
             # Seasonal tenant activity multiplier
-            activity_mult = 1.0 + 0.3 * math.sin(day * 0.15) + random.uniform(-0.05, 0.05)
+            activity_mult = 1.0 + 0.25 * math.sin(day * 0.12) + random.uniform(-0.03, 0.03)
             
             # Row growth with retention eviction after threshold
             added_rows = int(tenant["daily_growth"] * activity_mult)
-            evicted_rows = int(added_rows * 0.88) if day >= tenant["retention_days"] else 0
+            evicted_rows = int(added_rows * 0.72) if day >= tenant["retention_days"] else 0
             net_rows = added_rows - evicted_rows
+
+            tenant_states[tid]["current_rows"] += net_rows
+            total_rows = tenant_states[tid]["current_rows"]
 
             table_bytes_per_row = 256
             index_bytes_per_row = 80 # B-Tree index overhead (idx_tenant_room + idx_session_token)
 
-            # Cumulative row calculation
-            prev_total_rows = tenant["base_rows"] + (day * net_rows)
-            table_size_mb = (prev_total_rows * table_bytes_per_row) / (1024 * 1024)
-            # Index bloat factor increases over time due to page fragmentation
-            index_bloat_factor = 1.35 + (day * 0.004)
-            index_size_mb = (prev_total_rows * index_bytes_per_row * index_bloat_factor) / (1024 * 1024)
+            table_size_mb = (total_rows * table_bytes_per_row) / (1024 * 1024)
+            # Non-linear B-Tree index bloat factor due to page fragmentation under continuous mutations
+            index_bloat_factor = 1.35 + (day * 0.008) + (0.00012 * (day ** 2))
+            index_size_mb = (total_rows * index_bytes_per_row * index_bloat_factor) / (1024 * 1024)
             total_size_mb = table_size_mb + index_size_mb
 
             rows_csv.append({
@@ -57,7 +65,7 @@ def generate_telemetry_dataset(output_dir="data"):
                 "active_sessions": int(100 * activity_mult * random.uniform(0.9, 1.1)),
                 "added_rows": added_rows,
                 "evicted_rows": evicted_rows,
-                "total_rows": prev_total_rows,
+                "total_rows": total_rows,
                 "table_size_mb": round(table_size_mb, 3),
                 "index_size_mb": round(index_size_mb, 3),
                 "total_size_mb": round(total_size_mb, 3),
