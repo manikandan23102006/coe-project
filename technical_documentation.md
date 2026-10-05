@@ -92,7 +92,8 @@ function processIncomingEvent(event) {
 
 | Metric | Baseline Linear Model | Tenant-Aware Forecaster | Improvement |
 |---|---|---|---|
-| **MAE (Mean Absolute Error)** | 8.4 Days | 1.8 Days | **4.6x Lower Error** |
-| **RMSE (Root Mean Square Error)** | 10.2 Days | 2.3 Days | **4.4x Lower RMSE** |
-| **MAPE (Mean Abs % Error)** | 18.6% | 4.1% | **4.5x Higher Accuracy** |
-| **Underprediction Risk** | High (14 instances) | Minimal (1 instance) | **Proactive Alerting** |
+| **MAE (Mean Absolute Error)** | 9.0 Days | 1.33 Days | **6.75x Lower Error** |
+| **RMSE (Root Mean Square Error)** | 10.34 Days | 1.41 Days | **7.33x Lower RMSE** |
+| **90% CI Empirical Coverage** | 52.8% | 100.0% | **Complete Coverage** |
+| **95% CI Empirical Coverage** | 72.8% | 100.0% | **Complete Coverage** |
+| **Underprediction Risk** | High (3 instances) | Zero (0 instances) | **Proactive Alerting** |

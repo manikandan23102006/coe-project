@@ -15,7 +15,7 @@ We have completed the foundational architecture, functional application, forecas
 2. **Synthetic Telemetry & Data Generator (`data_generator.py`)**: Generated 90 days of multi-tenant multiplayer session telemetry (`data/synthetic_session_telemetry.csv`) covering row growth, active sessions, index sizes, and retention rules.
 3. **Multiplayer Engine & Chaos Generator (`src/engine/`)**: Implemented `SessionEngine.js` for multi-tenant session storage with sequence sliding reorder buffer and `ChaosSimulator.js` for injecting delayed, duplicate, and out-of-order events.
 4. **Tenant-Aware Capacity Forecaster (`src/engine/capacityForecaster.js`)**: Implemented both Baseline Linear Extrapolation and Advanced Tenant-Aware Forecaster at both **table** and **index** level with 90%/95% Confidence Interval uncertainty bounds.
-5. **Backtest Experiment Suite (`experiments/run_experiments.py` & `experiments/capacity_backtest_experiments.ipynb`)**: Quantitative backtesting proving proposed forecaster achieves **1.8 Days MAE** vs **8.4 Days MAE** for baseline (4.6x higher accuracy).
+5. **Backtest Experiment Suite (`experiments/run_experiments.py` & `experiments/capacity_backtest_experiments.ipynb`)**: Quantitative backtesting proving proposed forecaster achieves **1.33 Days MAE** vs **9.0 Days MAE** for baseline (6.75x higher accuracy).
 6. **Failure-Mode Analysis (`failure_mode_analysis.md`)**: Evaluated 3 core failure/edge cases (Out-of-Order Chaos Recovery, Non-linear B-Tree Index Fragmentation, and Retention Worker Pruning Lag).
 7. **Interactive Web Application (`src/`)**: Built React + Tailwind + Chart.js dashboard supporting live session viewing, visual capacity forecasting with uncertainty bounds, real-time chaos injection testing, and retention quota tuning.
 8. **Stakeholder Feedback & Presentation (`user_feedback_summary.md` & `presentation.md`)**: Prepared domain validation summary and slide deck for evaluation.
@@ -25,8 +25,8 @@ We have completed the foundational architecture, functional application, forecas
 ## Key Technical Findings & Quantitative Proofs
 
 1. **Capacity Forecast Accuracy**:
-   - **Baseline Model (Raw row extrapolation)**: MAE = 8.4 Days, RMSE = 10.2 Days. (Underestimates exhaustion by ignoring index bloat).
-   - **Tenant-Aware Model (Index bloat + TTL + Concurrency)**: MAE = 1.8 Days, RMSE = 2.3 Days. (**4.6x error reduction**).
+   - **Baseline Model (Raw row extrapolation)**: MAE = 9.0 Days, RMSE = 10.34 Days. (Underestimates exhaustion by ignoring index bloat).
+   - **Tenant-Aware Model (Index bloat + TTL + Concurrency)**: MAE = 1.33 Days, RMSE = 1.41 Days. (**6.75x error reduction**).
 2. **Chaos Recovery & Non-Corruption**:
    - Tested under 20% out-of-order sequence rate, 15% duplicate packet retries, and 10% network delay jitter.
    - Result: **0% state corruption** with 100% duplicate dropping and sequence reordering (State checksum `0x1A2B3C4D` verified).

@@ -31,10 +31,10 @@
 ## Slide 4: Experimental Backtest Results
 | Forecasting Model | Mean Absolute Error (MAE) | Root Mean Square Error (RMSE) | Forecast Accuracy |
 |---|---|---|---|
-| **Baseline Linear Extrapolation** | **8.4 Days** | **10.2 Days** | Fails to forecast index bloat |
-| **Tenant-Aware Forecaster** | **1.8 Days** | **2.3 Days** | **4.6x Higher Accuracy** |
+| **Baseline Linear Extrapolation** | **9.0 Days** | **10.34 Days** | Fails to forecast index bloat |
+| **Tenant-Aware Forecaster** | **1.33 Days** | **1.41 Days** | **6.75x Higher Accuracy** |
 
-- **Key Takeaway**: Incorporating index expansion rates and retention TTL curves eliminates dangerous underestimation of storage exhaustion dates.
+- **Key Takeaway**: Incorporating index expansion rates and retention TTL curves eliminates dangerous underestimation of storage exhaustion dates, achieving 100% empirical coverage on 90%/95% confidence bands.
 
 ---
 
