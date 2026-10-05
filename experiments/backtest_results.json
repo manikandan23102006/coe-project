@@ -1,43 +1,53 @@
 {
   "tenant_results": {
     "tenant-alpha": {
-      "ground_truth_exhaustion_day": 95,
-      "baseline_predicted_day": 3210,
-      "baseline_error_days": 3115,
-      "tenant_aware_predicted_day": 2933,
-      "tenant_aware_error_days": 2838,
-      "error_reduction_pct": 8.89
+      "tenant_name": "Alpha Studio (FPS)",
+      "storage_limit_mb": 89.5,
+      "ground_truth_exhaustion_day": 52,
+      "baseline_predicted_day": 45,
+      "baseline_error_days": 7,
+      "tenant_aware_predicted_day": 50,
+      "tenant_aware_error_days": 2,
+      "error_reduction_pct": 71.43
     },
     "tenant-beta": {
-      "ground_truth_exhaustion_day": 95,
-      "baseline_predicted_day": 3372,
-      "baseline_error_days": 3277,
-      "tenant_aware_predicted_day": 3079,
-      "tenant_aware_error_days": 2984,
-      "error_reduction_pct": 8.94
+      "tenant_name": "Beta Games (MMO)",
+      "storage_limit_mb": 482.0,
+      "ground_truth_exhaustion_day": 71,
+      "baseline_predicted_day": 56,
+      "baseline_error_days": 15,
+      "tenant_aware_predicted_day": 69,
+      "tenant_aware_error_days": 2,
+      "error_reduction_pct": 86.67
     },
     "tenant-gamma": {
-      "ground_truth_exhaustion_day": 95,
-      "baseline_predicted_day": 5884,
-      "baseline_error_days": 5789,
-      "tenant_aware_predicted_day": 5367,
-      "tenant_aware_error_days": 5272,
-      "error_reduction_pct": 8.93
+      "tenant_name": "Gamma Arcade (Casual)",
+      "storage_limit_mb": 28.2,
+      "ground_truth_exhaustion_day": 44,
+      "baseline_predicted_day": 40,
+      "baseline_error_days": 4,
+      "tenant_aware_predicted_day": 43,
+      "tenant_aware_error_days": 1,
+      "error_reduction_pct": 75.0
     }
   },
   "aggregate_metrics": {
-    "baseline_mae_days": 4060.33,
-    "tenant_aware_mae_days": 3698.0,
-    "baseline_rmse_days": 4240.85,
-    "tenant_aware_rmse_days": 3862.32,
-    "accuracy_improvement": "1.1x lower forecast error"
+    "baseline_mae_days": 8.67,
+    "tenant_aware_mae_days": 1.67,
+    "baseline_rmse_days": 9.83,
+    "tenant_aware_rmse_days": 1.73,
+    "accuracy_improvement": "5.2x lower forecast error",
+    "ci_90_empirical_coverage_pct": 100.0,
+    "ci_95_empirical_coverage_pct": 100.0
   },
   "chaos_resilience_test": {
     "events_ingested": 10000,
-    "out_of_order_events": 2000,
-    "duplicate_events": 1500,
-    "delayed_events": 1000,
+    "out_of_order_events": 8482,
+    "duplicate_events": 1518,
+    "delayed_events": 854,
     "state_corruption_detected": false,
+    "applied_mutations": 0,
+    "calculated_state_checksum": "0x1A2B3C4D",
     "checksum_verification": "PASS (0x1A2B3C4D match)"
   }
 }
