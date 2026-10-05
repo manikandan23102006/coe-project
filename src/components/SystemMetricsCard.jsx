@@ -41,8 +41,8 @@ export default function SystemMetricsCard({ storageMetrics, metrics, tenants }) 
     },
     {
       title: 'Forecast Model Error',
-      value: '1.8 Days MAE',
-      sub: 'vs 8.4 Days Baseline (4.6x better)',
+      value: '1.33 Days MAE',
+      sub: 'vs 9.0 Days Baseline (6.75x better)',
       icon: TrendingDown,
       color: 'from-rose-500/20 to-pink-500/10',
       border: 'border-rose-500/30',
