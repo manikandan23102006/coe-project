@@ -10,7 +10,12 @@ import { SessionEngine } from './engine/sessionEngine';
 import { ChaosSimulator } from './engine/chaosSimulator';
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({
+    name: 'Lead SRE',
+    email: 'admin@alphastudios.com',
+    tenantId: 'tenant-alpha',
+    role: 'Lead Infrastructure Engineer'
+  });
   const [activeTab, setActiveTab] = useState('forecast');
   
   // Single persistent SessionEngine instance
