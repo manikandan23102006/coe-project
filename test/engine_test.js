@@ -105,3 +105,38 @@ test('Chaos Resilience - Execution against SessionEngine', () => {
   assert.equal(chaosResults.state_corruption_detected, false);
   assert.equal(chaosResults.calculated_state_checksum, '0x1A2B3C4D');
 });
+
+test('StorageEngineBridge - Physical Page Footprint & B-Tree Fragmentation', () => {
+  const engine = new SessionEngine();
+  for (let i = 1; i <= 100; i++) {
+    engine.processEvent({
+      eventId: `evt_bridge_${i}`,
+      tenantId: 'tenant-alpha',
+      seq: i,
+      timestamp: Date.now(),
+      payload: { sessionId: `sess_${i % 10}`, state: { level: i, xp: i * 50 } }
+    });
+  }
+
+  const physicalStats = engine.getPhysicalStorageStats();
+  assert.ok(physicalStats !== null);
+  assert.equal(physicalStats.pageSize, 4096);
+  assert.ok(physicalStats.totalPages >= physicalStats.dataPages + physicalStats.indexPages);
+  assert.ok(physicalStats.indexBloatFactor >= 1.35);
+  assert.ok(parseFloat(physicalStats.totalDiskMB) > 0);
+});
+
+test('StorageEngineBridge - PRAGMA Command Execution & Invariants', () => {
+  const engine = new SessionEngine();
+  const resPageSize = engine.executePragma('PRAGMA page_size');
+  assert.equal(resPageSize.value, 4096);
+
+  const resIntegrity = engine.executePragma('PRAGMA integrity_check');
+  assert.equal(resIntegrity.result, 'ok');
+  assert.equal(resIntegrity.checksum, '0x1A2B3C4D');
+
+  const resIndexList = engine.executePragma('PRAGMA index_list');
+  assert.ok(Array.isArray(resIndexList.indexes));
+  assert.ok(resIndexList.indexes.length >= 4);
+});
+
