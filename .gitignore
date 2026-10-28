@@ -26,3 +26,9 @@ dist-ssr
 # Python
 __pycache__/
 *.pyc
+
+# Database temp files
+*.db-wal
+*.db-shm
+
+*.db

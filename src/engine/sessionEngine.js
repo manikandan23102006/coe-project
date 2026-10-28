@@ -1,14 +1,20 @@
+import { PhysicalPageStorageAdapter } from './storageEngineBridge.js';
+
 /**
  * Multiplayer Session State Engine
  * Manages real-time session state, idempotency cache, out-of-order sequence window reordering,
- * table row mutations, and index overhead calculations.
+ * table row mutations, index overhead calculations, and physical DB bridge.
  */
 
 export class SessionEngine {
-  constructor() {
+  constructor(config = {}) {
     this.seenEventIds = new Set();
     this.sequenceBuffer = new Map(); // tenantId -> Map(seq -> event)
     this.lastProcessedSeq = new Map(); // tenantId -> highest processed seq
+    
+    // Physical Storage Engine Bridge (SQLite / B-Tree Page Adapter)
+    this.storageBridge = config.storageBridge || new PhysicalPageStorageAdapter();
+
     
     // Table store representation
     this.tables = {
@@ -152,8 +158,30 @@ export class SessionEngine {
       });
     }
 
+    // Propagate mutation to physical storage engine bridge
+    if (this.storageBridge) {
+      this.storageBridge.writeEvent(event);
+      if (payload && payload.sessionId) {
+        this.storageBridge.writeSession({ tenantId, sessionId: payload.sessionId, state: payload.state });
+      }
+    }
+
     // Update simple state checksum (hash invariant verification)
     this.metrics.stateChecksum = (this.metrics.stateChecksum ^ (event.seq * 31) ^ (timestamp & 0xFFFF)) >>> 0;
+  }
+
+  /**
+   * Get low-level physical disk storage stats via the storage bridge
+   */
+  getPhysicalStorageStats() {
+    return this.storageBridge ? this.storageBridge.getPhysicalStorageStats() : null;
+  }
+
+  /**
+   * Execute DB PRAGMA command via storage bridge
+   */
+  executePragma(cmd) {
+    return this.storageBridge ? this.storageBridge.executePragma(cmd) : { error: 'No bridge configured' };
   }
 
   /**

@@ -1,0 +1,44 @@
+{
+  "benchmark_timestamp": 1793162719,
+  "sqlite_page_size": 4096,
+  "sqlite_page_count": 2858,
+  "sqlite_freelist_count": 0,
+  "sqlite_integrity_check": "ok",
+  "main_db_file_bytes": 11706368,
+  "main_db_file_mb": 11.164,
+  "wal_buffer_bytes": 11845032,
+  "wal_buffer_mb": 11.296,
+  "total_physical_disk_bytes": 23551400,
+  "total_physical_disk_mb": 22.46,
+  "table_row_counts": {
+    "session_state": {
+      "row_count": 4451
+    },
+    "player_events": {
+      "row_count": 50000
+    },
+    "match_metadata": {
+      "row_count": 200
+    }
+  },
+  "tenant_event_distribution": {
+    "tenant-alpha": 12488,
+    "tenant-beta": 32423,
+    "tenant-gamma": 5089
+  },
+  "theoretical_model_comparison": {
+    "theoretical_data_bytes": 7641856,
+    "theoretical_index_bytes": 6127332,
+    "theoretical_total_bytes": 13769188,
+    "theoretical_total_mb": 13.131,
+    "main_db_model_accuracy_pct": 82.38,
+    "main_db_discrepancy_pct": 17.62,
+    "wal_surge_amplification_factor": 2.01,
+    "empirical_btree_bloat_factor": 1.53
+  },
+  "privacy_verification": {
+    "pii_fields_stored": 0,
+    "synthetic_token_only": true,
+    "gdpr_compliant": true
+  }
+}
