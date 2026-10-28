@@ -1,12 +1,13 @@
 import React from 'react';
-import { Database, ShieldAlert, Cpu, Activity, Sliders, Layers, UserCheck, LogOut } from 'lucide-react';
+import { Database, ShieldAlert, Cpu, Activity, Sliders, Layers, UserCheck, LogOut, HardDrive } from 'lucide-react';
 
 export default function Header({ activeTab, setActiveTab, metrics, currentUser, onSignOut }) {
   const tabs = [
     { id: 'forecast', label: 'Capacity Forecaster', icon: Database },
     { id: 'session', label: 'Multiplayer Session State', icon: Activity },
     { id: 'chaos', label: 'Chaos Engineering Lab', icon: ShieldAlert },
-    { id: 'retention', label: 'Retention & Quota Config', icon: Sliders }
+    { id: 'retention', label: 'Retention & Quota Config', icon: Sliders },
+    { id: 'database', label: 'Database Bridge & Physical Storage', icon: HardDrive }
   ];
 
   return (

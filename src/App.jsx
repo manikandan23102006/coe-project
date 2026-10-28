@@ -5,6 +5,7 @@ import CapacityForecastView from './components/CapacityForecastView';
 import SessionStateView from './components/SessionStateView';
 import ChaosLabView from './components/ChaosLabView';
 import RetentionSimulator from './components/RetentionSimulator';
+import DatabaseBridgeView from './components/DatabaseBridgeView';
 import AuthView from './components/AuthView';
 import { SessionEngine } from './engine/sessionEngine';
 import { ChaosSimulator } from './engine/chaosSimulator';
@@ -98,6 +99,10 @@ export default function App() {
 
             {activeTab === 'retention' && (
               <RetentionSimulator tenants={tenants} onUpdateTenant={handleUpdateTenant} />
+            )}
+
+            {activeTab === 'database' && (
+              <DatabaseBridgeView engine={engine} storageMetrics={storageMetrics} tenants={tenants} />
             )}
           </>
         )}
