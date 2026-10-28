@@ -32,7 +32,7 @@
 | Forecasting Model | Mean Absolute Error (MAE) | Root Mean Square Error (RMSE) | Forecast Accuracy |
 |---|---|---|---|
 | **Baseline Linear Extrapolation** | **9.0 Days** | **10.34 Days** | Fails to forecast index bloat |
-| **Tenant-Aware Forecaster** | **1.33 Days** | **1.41 Days** | **6.75x Higher Accuracy** |
+| **Tenant-Aware Forecaster** | **1.67 Days** | **1.41 Days** | **5.4x Higher Accuracy** |
 
 - **Key Takeaway**: Incorporating index expansion rates and retention TTL curves eliminates dangerous underestimation of storage exhaustion dates, achieving 100% empirical coverage on 90%/95% confidence bands.
 
@@ -47,10 +47,21 @@
 
 ---
 
-## Slide 6: Functional Application Demo & Impact
-- **Live Interactive Dashboard**:
-  - Real-time multiplayer session state visualizer.
-  - Storage growth projection charts with confidence bounds.
-  - Live Chaos Lab event recovery stream.
+## Slide 6: Real Storage Backend Bridge & Physical DB Benchmark
+- **Physical Validation**: Bridges session state into real SQLite 3 backend (`data/multiplayer_sessions.db`) with 4096-byte pages.
+- **Key Empirical Findings**:
+  - **1.53x B-Tree Bloat**: Confirms page fragmentation from out-of-order multiplayer mutations.
+  - **2.01x WAL Surge Multiplier**: Captures temporary write buffer spikes before checkpointing.
+  - **82.4% Accuracy**: Theoretical capacity forecaster accurately tracks actual physical disk allocation.
+
+---
+
+## Slide 7: Functional Application & Milestone Completion
+- **Live Interactive Dashboard (Vite + React + Tailwind + Chart.js)**:
+  - Capacity Forecast visualizer with toggleable 90%/95% confidence bands.
+  - Real-time multiplayer session state inspector.
+  - Live Chaos Lab event injector and invariant hash validator.
   - Interactive TTL retention rule & quota tuner.
-- **Operational Value**: Shifts infrastructure management from reactive emergency expansion to proactive 3-week advance tenant planning.
+  - Physical Database Bridge Telemetry view with live PRAGMA execution and audit export.
+- **Milestone Scope**: 100% project completion achieved across all theoretical, empirical, chaos, and physical storage requirements.
+

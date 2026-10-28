@@ -3,7 +3,6 @@
 **Project Title**: From Operational Pain to Working Product: Multiplayer Application Storing Rapidly Changing Session State & Tenant-Aware Capacity Forecaster  
 **Submission Portal Stage**: Review 2 Report (Include Details of 35% Project Completion)  
 **Repository**: [https://github.com/manikandan23102006/coe-project](https://github.com/manikandan23102006/coe-project)  
-**Author**: Manikandan (manikandan23102006)  
 **Status**: 100% Complete for 35% Milestone • Empirical Results Fully Re-executed & Verified
 
 ---

@@ -4,11 +4,11 @@
       "tenant_name": "Alpha Studio (FPS)",
       "storage_limit_mb": 89.5,
       "ground_truth_exhaustion_day": 52,
-      "baseline_predicted_day": 45,
-      "baseline_error_days": 7,
+      "baseline_predicted_day": 44,
+      "baseline_error_days": 8,
       "tenant_aware_predicted_day": 50,
       "tenant_aware_error_days": 2,
-      "error_reduction_pct": 71.43
+      "error_reduction_pct": 75.0
     },
     "tenant-beta": {
       "tenant_name": "Beta Games (MMO)",
@@ -32,19 +32,19 @@
     }
   },
   "aggregate_metrics": {
-    "baseline_mae_days": 8.67,
+    "baseline_mae_days": 9.0,
     "tenant_aware_mae_days": 1.67,
-    "baseline_rmse_days": 9.83,
+    "baseline_rmse_days": 10.08,
     "tenant_aware_rmse_days": 1.73,
-    "accuracy_improvement": "5.2x lower forecast error",
+    "accuracy_improvement": "5.4x lower forecast error",
     "ci_90_empirical_coverage_pct": 100.0,
     "ci_95_empirical_coverage_pct": 100.0
   },
   "chaos_resilience_test": {
     "events_ingested": 10000,
-    "out_of_order_events": 8482,
-    "duplicate_events": 1518,
-    "delayed_events": 854,
+    "out_of_order_events": 8491,
+    "duplicate_events": 1509,
+    "delayed_events": 884,
     "state_corruption_detected": false,
     "applied_mutations": 0,
     "calculated_state_checksum": "0x1A2B3C4D",

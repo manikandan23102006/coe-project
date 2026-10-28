@@ -59,6 +59,8 @@ This document outlines the end-to-end operational data lineage, system field map
 | **Storage** | `session_state` | `Table` | Active session snapshot (256B/row) | Storing rapidly changing player/room state |
 | **Storage** | `player_events` | `Table` | Append-only event history (128B/row) | Audit trail & state recovery log |
 | **Storage** | `idx_tenant_room` | `B-Tree Index` | Composite index on (tenant_id, room_id) | Fast session lookup query execution |
+| **Physical Bridge** | `sqlite_pages` | `4KB Blocks` | Physical database page allocations (PRAGMA page_count) | Real hardware-level disk consumption validation |
+| **Physical Bridge** | `wal_buffer` | `Disk File` | Write-Ahead Log journal stream (2.01x surge buffer) | Peak write surge headroom sizing |
 | **Telemetry** | `rowCount` | `Int64` | Current active rows in table | Row growth rate calculation |
 | **Telemetry** | `indexSizeMB` | `Float` | Physical B-Tree page memory footprint | Index bloat & fragmentation ratio calculation |
 | **Forecaster** | `DaysToExhaustion` | `Int32` | Predicted days until storage quota breach | Proactive tenant capacity expansion alerting |
